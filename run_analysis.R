@@ -24,7 +24,7 @@ xTrain <- read.table('./UCI HAR Dataset/train/X_train.txt', col.names = features
 yTrain <- read.table('./UCI HAR Dataset/train/y_train.txt', col.names = 'activity_id')
 subTrain <- read.table('./UCI HAR Dataset/train/subject_train.txt', col.names = 'subject_id')
 
-# Combine all test data in one data frame
+# Combine all training data in one data frame
 trainData <- cbind(subTrain, yTrain, xTrain)
 
 # Merge test data and training data into one data frame
@@ -47,8 +47,7 @@ activity <- factor(data$activity_id, levels = 1:6, labels = actLabels)
 data$activity_id <- activity
 data <- rename(data, activity = activity_id)
 
-# Extract only the features that are measurements on mean and standard deviation
-# of the signals
+# Extract only the features that are mean and standard deviations
 tidyData1 <- select(data, subject_id:activity, 
                     contains('Mean', ignore.case = FALSE), 
                     contains('Sd', ignore.case = FALSE),
